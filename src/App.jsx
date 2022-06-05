@@ -1,3 +1,12 @@
+import { Header } from "./components/Header";
+
+import "./global.css";
+
 export const App = () => {
-  return <h1>Ignite Feed</h1>;
+  return (
+    <>
+      <Header />
+      <h1>Test</h1>
+    </>
+  );
 };
