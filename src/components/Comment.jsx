@@ -20,10 +20,10 @@ export const Comment = () => {
     <div className={styles.comment}>
       <img src="https://github.com/marcos-06.png" />
 
-      <div className="commentBox">
-        <div className="commentContent">
+      <div className={styles.commentBox}>
+        <div className={styles.commentContent}>
           <header>
-            <div className="authorAndTime">
+            <div className={styles.authorAndTime}>
               <strong>Marcos Basso</strong>
               <time
                 title={mockedDate.toLocaleString(browserLang, dateOptions)}
@@ -41,7 +41,9 @@ export const Comment = () => {
           <p>Muito bom, parabéns!! 👏👏</p>
         </div>
         <footer>
-          <HandsClapping /> Applaud <span>20</span>
+          <button>
+            <HandsClapping /> Applaud <span>20</span>
+          </button>
         </footer>
       </div>
     </div>
