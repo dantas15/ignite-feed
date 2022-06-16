@@ -2,6 +2,7 @@ import { HandsClapping, Trash } from 'phosphor-react';
 
 import styles from './Comment.module.css';
 import { fromNow } from '../utils/dates';
+import { Avatar } from './Avatar';
 
 const mockedDate = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 const browserLang = navigator.language;
@@ -18,7 +19,7 @@ const { humanized } = fromNow({ fromDate: mockedDate });
 export const Comment = () => {
   return (
     <div className={styles.comment}>
-      <img src="https://github.com/marcos-06.png" />
+      <Avatar hasBorder={false} src="https://github.com/marcos-06.png" />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
