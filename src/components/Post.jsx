@@ -1,5 +1,6 @@
 import { fromNow } from '../utils/dates';
 import styles from './Post.module.css';
+import { Comment } from './Comment';
 
 const mockedDate = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 const browserLang = navigator.language;
@@ -59,6 +60,12 @@ export const Post = () => {
           <button type="submit">Comment</button>
         </footer>
       </form>
+
+      <div className={styles.commentList}>
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
     </article>
   );
 };
