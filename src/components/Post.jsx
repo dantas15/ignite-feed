@@ -23,13 +23,13 @@ export const Post = () => {
             <strong>Gustavo Galote</strong>
             <span>Web developer</span>
           </div>
-          <time
-            title={mockedDate.toLocaleString(browserLang, dateOptions)}
-            dateTime={mockedDate}
-          >
-            Published {humanized}
-          </time>
         </div>
+        <time
+          title={mockedDate.toLocaleString(browserLang, dateOptions)}
+          dateTime={mockedDate}
+        >
+          Published {humanized}
+        </time>
       </header>
 
       <div className={styles.content}>
@@ -49,6 +49,16 @@ export const Post = () => {
           <a href="#">#rocketseat </a>
         </p>
       </div>
+
+      <form className={styles.commentForm}>
+        <strong>Leave your feedback</strong>
+
+        <textarea placeholder="Leave your comment here" />
+
+        <footer>
+          <button type="submit">Comment</button>
+        </footer>
+      </form>
     </article>
   );
 };
