@@ -3,7 +3,6 @@ import styles from './Post.module.css';
 import { Comment } from './Comment';
 import { Avatar } from './Avatar';
 
-const mockedDate = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 const browserLang = navigator.language;
 const dateOptions = {
   year: 'numeric',
@@ -13,22 +12,23 @@ const dateOptions = {
   minute: '2-digit',
   second: '2-digit',
 };
-const { humanized } = fromNow({ fromDate: mockedDate });
 
-export const Post = () => {
+export const Post = ({ author, publishedAt }) => {
+  const { humanized } = fromNow({ fromDate: publishedAt });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/gusgalote.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Gustavo Galote</strong>
-            <span>Web developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
         <time
-          title={mockedDate.toLocaleString(browserLang, dateOptions)}
-          dateTime={mockedDate}
+          title={publishedAt.toLocaleString(browserLang, dateOptions)}
+          dateTime={publishedAt}
         >
           Published {humanized}
         </time>
