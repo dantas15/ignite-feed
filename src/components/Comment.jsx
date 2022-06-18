@@ -1,22 +1,29 @@
 import { HandsClapping, Trash } from 'phosphor-react';
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/esm/locale/pt-BR';
+import enUS from 'date-fns/esm/locale/en-US';
 
 import styles from './Comment.module.css';
-import { fromNow } from '../utils/dates';
 import { Avatar } from './Avatar';
 
-const mockedDate = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
-const browserLang = navigator.language;
-const dateOptions = {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-};
-const { humanized } = fromNow({ fromDate: mockedDate });
-
 export const Comment = () => {
+  const publishedAt = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
+
+  const isBrowserPtBr = navigator.language === 'pt-BR';
+  const locale = isBrowserPtBr ? ptBR : enUS;
+
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: locale,
+    }
+  );
+  const publishedDateFromNow = formatDistanceToNow(publishedAt, {
+    locale: locale,
+    addSuffix: true,
+  });
+
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src="https://github.com/marcos-06.png" />
@@ -27,10 +34,10 @@ export const Comment = () => {
             <div className={styles.authorAndTime}>
               <strong>Marcos Basso</strong>
               <time
-                title={mockedDate.toLocaleString(browserLang, dateOptions)}
-                dateTime={mockedDate}
+                title={publishedDateFormatted}
+                dateTime={publishedAt.toISOString()}
               >
-                Published {humanized}
+                {publishedDateFromNow}
               </time>
             </div>
 

@@ -1,20 +1,27 @@
-import { fromNow } from '../utils/dates';
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/esm/locale/pt-BR';
+import enUS from 'date-fns/esm/locale/en-US';
+
 import styles from './Post.module.css';
 import { Comment } from './Comment';
 import { Avatar } from './Avatar';
 
-const browserLang = navigator.language;
-const dateOptions = {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-};
-
 export const Post = ({ author, publishedAt }) => {
-  const { humanized } = fromNow({ fromDate: publishedAt });
+  const isBrowserPtBr = navigator.language === 'pt-BR';
+  const locale = isBrowserPtBr ? ptBR : enUS;
+
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: locale,
+    }
+  );
+
+  const publishedDateFromNow = formatDistanceToNow(publishedAt, {
+    locale: locale,
+    addSuffix: true,
+  });
 
   return (
     <article className={styles.post}>
@@ -27,10 +34,10 @@ export const Post = ({ author, publishedAt }) => {
           </div>
         </div>
         <time
-          title={publishedAt.toLocaleString(browserLang, dateOptions)}
-          dateTime={publishedAt}
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-          Published {humanized}
+          {publishedDateFromNow}
         </time>
       </header>
 
