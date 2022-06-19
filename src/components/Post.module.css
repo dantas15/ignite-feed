@@ -93,7 +93,7 @@
   max-height: none;
 }
 
-.commentForm > button[type='submit'] {
+.commentForm button[type='submit'] {
   padding: 1.6rem 2.4rem;
   margin-top: 1.6rem;
   border-radius: 8px;
@@ -106,7 +106,7 @@
   transition: background-color 0.1s;
 }
 
-.commentForm > button[type='submit']:hover {
+.commentForm button[type='submit']:hover {
   background: var(--green-300);
 }
 
