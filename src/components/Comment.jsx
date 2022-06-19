@@ -6,7 +6,7 @@ import enUS from 'date-fns/esm/locale/en-US';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 
-export const Comment = () => {
+export const Comment = ({ content }) => {
   const publishedAt = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 
   const isBrowserPtBr = navigator.language === 'pt-BR';
@@ -26,13 +26,13 @@ export const Comment = () => {
 
   return (
     <div className={styles.comment}>
-      <Avatar hasBorder={false} src="https://github.com/marcos-06.png" />
+      <Avatar hasBorder={false} src="https://github.com/gusgalote.png" />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Marcos Basso</strong>
+              <strong>Gustavo</strong>
               <time
                 title={publishedDateFormatted}
                 dateTime={publishedAt.toISOString()}
@@ -46,7 +46,7 @@ export const Comment = () => {
             </button>
           </header>
 
-          <p>Muito bom, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
         <footer>
           <button>

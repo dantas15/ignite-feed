@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/esm/locale/pt-BR';
 import enUS from 'date-fns/esm/locale/en-US';
@@ -7,6 +8,10 @@ import { Comment } from './Comment';
 import { Avatar } from './Avatar';
 
 export const Post = ({ author, publishedAt, content }) => {
+  const [comments, setComments] = useState([]);
+
+  const [newComment, setNewComment] = useState('');
+
   const isBrowserPtBr = navigator.language === 'pt-BR';
   const locale = isBrowserPtBr ? ptBR : enUS;
 
@@ -22,6 +27,18 @@ export const Post = ({ author, publishedAt, content }) => {
     locale: locale,
     addSuffix: true,
   });
+
+  const handleCreateNewComment = () => {
+    event.preventDefault();
+
+    setComments([...comments, newComment]);
+
+    setNewComment('');
+  };
+
+  const handleChangeNewComment = () => {
+    setNewComment(event.target.value);
+  };
 
   return (
     <article className={styles.post}>
@@ -56,10 +73,14 @@ export const Post = ({ author, publishedAt, content }) => {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Leave your feedback</strong>
 
-        <textarea placeholder="Leave your comment here" />
+        <textarea
+          value={newComment}
+          onChange={handleChangeNewComment}
+          placeholder="Leave your comment here"
+        />
 
         <footer>
           <button type="submit">Comment</button>
@@ -67,9 +88,9 @@ export const Post = ({ author, publishedAt, content }) => {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => (
+          <Comment content={comment} />
+        ))}
       </div>
     </article>
   );
