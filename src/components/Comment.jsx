@@ -6,7 +6,7 @@ import enUS from 'date-fns/esm/locale/en-US';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 
-export const Comment = ({ content }) => {
+export const Comment = ({ content, deleteComment }) => {
   const publishedAt = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 
   const isBrowserPtBr = navigator.language === 'pt-BR';
@@ -41,7 +41,10 @@ export const Comment = ({ content }) => {
               </time>
             </div>
 
-            <button title="Delete comment">
+            <button
+              title="Delete comment"
+              onClick={() => deleteComment(content)}
+            >
               <Trash size={20} />
             </button>
           </header>
