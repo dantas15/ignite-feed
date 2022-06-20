@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { HandsClapping, Trash } from 'phosphor-react';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/esm/locale/pt-BR';
@@ -6,7 +7,7 @@ import enUS from 'date-fns/esm/locale/en-US';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 
-export const Comment = ({ content, deleteComment }) => {
+export const Comment = ({ content, onDeleteComment }) => {
   const publishedAt = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 
   const isBrowserPtBr = navigator.language === 'pt-BR';
@@ -23,6 +24,16 @@ export const Comment = ({ content, deleteComment }) => {
     locale: locale,
     addSuffix: true,
   });
+
+  const [likeCount, setLikeCount] = useState(0);
+
+  const handleDeleteComment = () => {
+    onDeleteComment(content);
+  };
+
+  const handleLikeComment = () => {
+    setLikeCount((prevState) => prevState + 1);
+  };
 
   return (
     <div className={styles.comment}>
@@ -41,10 +52,7 @@ export const Comment = ({ content, deleteComment }) => {
               </time>
             </div>
 
-            <button
-              title="Delete comment"
-              onClick={() => deleteComment(content)}
-            >
+            <button title="Delete comment" onClick={handleDeleteComment}>
               <Trash size={20} />
             </button>
           </header>
@@ -52,8 +60,8 @@ export const Comment = ({ content, deleteComment }) => {
           <p>{content}</p>
         </div>
         <footer>
-          <button>
-            <HandsClapping /> Applaud <span>20</span>
+          <button onClick={handleLikeComment}>
+            <HandsClapping /> Applaud <span>{likeCount}</span>
           </button>
         </footer>
       </div>

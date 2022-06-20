@@ -105,7 +105,7 @@ export const Post = ({ author, publishedAt, content }) => {
           <Comment
             key={comment}
             content={comment}
-            deleteComment={deleteComment}
+            onDeleteComment={deleteComment}
           />
         ))}
       </div>
