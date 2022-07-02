@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/esm/locale/pt-BR';
 import enUS from 'date-fns/esm/locale/en-US';
@@ -7,8 +7,27 @@ import styles from './Post.module.css';
 import { Comment } from './Comment';
 import { Avatar } from './Avatar';
 
-export const Post = ({ author, publishedAt, content }) => {
-  const [comments, setComments] = useState([]);
+interface Author {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+interface Content {
+  type: 'paragraph' | 'link';
+  content: string;
+}
+
+interface PostProps {
+  author: Author;
+  publishedAt: Date;
+  content: Content[];
+}
+
+type Comment = string[];
+
+export const Post = ({ author, publishedAt, content }: PostProps) => {
+  const [comments, setComments] = useState<Comment>([]);
 
   const [newComment, setNewComment] = useState('');
 
@@ -28,7 +47,7 @@ export const Post = ({ author, publishedAt, content }) => {
     addSuffix: true,
   });
 
-  const handleCreateNewComment = () => {
+  const handleCreateNewComment = (event: FormEvent) => {
     event.preventDefault();
 
     setComments([...comments, newComment]);
@@ -36,11 +55,11 @@ export const Post = ({ author, publishedAt, content }) => {
     setNewComment('');
   };
 
-  const handleChangeNewComment = () => {
+  const handleChangeNewComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(event.target.value);
   };
 
-  const deleteComment = (commentToDelete) => {
+  const deleteComment = (commentToDelete: string) => {
     const commentsWithoutDeletedOne = comments.filter((comment) => {
       return comment !== commentToDelete;
     });

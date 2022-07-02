@@ -7,7 +7,12 @@ import enUS from 'date-fns/esm/locale/en-US';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 
-export const Comment = ({ content, onDeleteComment }) => {
+interface CommentProps {
+  content: string;
+  onDeleteComment: (comment: string) => void;
+}
+
+export const Comment = ({ content, onDeleteComment }: CommentProps) => {
   const publishedAt = new Date('Wed, 08 Jun 2022 11:31:31 GMT');
 
   const isBrowserPtBr = navigator.language === 'pt-BR';
